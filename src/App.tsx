@@ -5,6 +5,8 @@
 
 import React, { useState } from 'react';
 import QUESTIONS_DATA from './data.json';
+// @ts-ignore
+import bombDefuserCover from './assets/images/bomb_defuser_cover_1783617943672.jpg';
 
 interface Question {
   emojis: string;
@@ -20,6 +22,7 @@ export default function App() {
   // Game States
   const [isGameOpen, setIsGameOpen] = useState(false);
   const [isTyperfishOpen, setIsTyperfishOpen] = useState(false);
+  const [isBombDefuserOpen, setIsBombDefuserOpen] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -173,51 +176,103 @@ export default function App() {
           Namaig Orgil gedeg. 111r surguuliin 8b angid suraltsdag. Chuluut tsagaaraa mtb buyu uuliin dugui unah durtai. Mun motocross sonirhdog.
         </p>
 
-        {/* Typerfish Game Widget Card */}
+        {/* Games Launcher Container */}
         <div 
-          id="typerfish-launcher-card"
-          onClick={() => setIsTyperfishOpen(true)}
-          className="absolute left-6 md:left-10 top-[66%] md:top-[64%] z-20 pointer-events-auto group cursor-pointer bg-neutral-900/90 backdrop-blur-md border border-white/10 rounded-xl p-2 w-[200px] md:w-[220px] hover:border-white/20 hover:bg-neutral-900 transition-all duration-300 shadow-2xl active:scale-98"
+          id="games-launcher-container"
+          className="absolute left-6 md:left-10 top-[77%] md:top-[75%] z-20 pointer-events-auto flex flex-row gap-3 max-w-[calc(100%-48px)] overflow-x-auto scrollbar-none pb-1"
         >
-          <div className="relative aspect-video rounded-lg overflow-hidden mb-1.5 bg-neutral-950">
-            <img 
-              src="https://share.google/a5Kr0CAitB24W0Fn6" 
-              alt="typerfish challenge"
-              referrerPolicy="no-referrer"
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              onError={(e) => {
-                // Beautiful fallback in case image direct access hits restriction
-                e.currentTarget.style.display = 'none';
-                const container = e.currentTarget.parentElement;
-                if (container) {
-                  const label = document.createElement('div');
-                  label.className = 'absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-neutral-900 to-neutral-950 p-2 text-center';
-                  label.innerHTML = `
-                    <span class="text-2xl mb-0.5">🐟</span>
-                    <span class="text-[10px] font-semibold text-white tracking-wider uppercase">typerfish</span>
-                    <span class="text-[8px] text-white/40 uppercase mt-0.5">tap to type & race</span>
-                  `;
-                  container.appendChild(label);
-                }
-              }}
-            />
-            <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <span className="text-[10px] bg-white text-black px-2.5 py-1 rounded-full font-medium tracking-wider uppercase shadow-lg flex items-center gap-1">
-                <svg className="w-2.5 h-2.5 fill-current" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-                play
+          {/* Typerfish Game Widget Card */}
+          <div 
+            id="typerfish-launcher-card"
+            onClick={() => setIsTyperfishOpen(true)}
+            className="group cursor-pointer bg-neutral-900/90 backdrop-blur-md border border-white/10 rounded-xl p-2 w-[160px] md:w-[200px] shrink-0 hover:border-white/20 hover:bg-neutral-900 transition-all duration-300 shadow-2xl active:scale-98"
+          >
+            <div className="relative aspect-video rounded-lg overflow-hidden mb-1.5 bg-neutral-950">
+              <img 
+                src="https://share.google/a5Kr0CAitB24W0Fn6" 
+                alt="typerfish challenge"
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                onError={(e) => {
+                  // Beautiful fallback in case image direct access hits restriction
+                  e.currentTarget.style.display = 'none';
+                  const container = e.currentTarget.parentElement;
+                  if (container) {
+                    const label = document.createElement('div');
+                    label.className = 'absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-neutral-900 to-neutral-950 p-2 text-center';
+                    label.innerHTML = `
+                      <span class="text-xl mb-0.5">🐟</span>
+                      <span class="text-[10px] font-semibold text-white tracking-wider uppercase">typerfish</span>
+                    `;
+                    container.appendChild(label);
+                  }
+                }}
+              />
+              <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span className="text-[10px] bg-white text-black px-2.5 py-1 rounded-full font-medium tracking-wider uppercase shadow-lg flex items-center gap-1">
+                  <svg className="w-2.5 h-2.5 fill-current" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                  play
+                </span>
+              </div>
+            </div>
+            <div className="flex items-center justify-between px-1">
+              <div className="flex flex-col">
+                <span className="text-[11px] font-medium text-white tracking-wide group-hover:text-white transition-colors truncate max-w-[110px] md:max-w-[130px]">typerfish challenge</span>
+                <span className="text-[9px] text-white/50 font-mono lowercase">typerfish.app</span>
+              </div>
+              <span className="text-xs text-neutral-400 group-hover:text-white transition-colors translate-x-0 group-hover:translate-x-0.5 duration-200">
+                →
               </span>
             </div>
           </div>
-          <div className="flex items-center justify-between px-1">
-            <div className="flex flex-col">
-              <span className="text-[11px] font-medium text-white tracking-wide group-hover:text-white transition-colors">typerfish challenge</span>
-              <span className="text-[9px] text-white/50 font-mono lowercase">typerfish.vercel.app</span>
+
+          {/* Bomb Defuser Game Widget Card */}
+          <div 
+            id="bombdefuser-launcher-card"
+            onClick={() => setIsBombDefuserOpen(true)}
+            className="group cursor-pointer bg-neutral-900/90 backdrop-blur-md border border-white/10 rounded-xl p-2 w-[160px] md:w-[200px] shrink-0 hover:border-white/20 hover:bg-neutral-900 transition-all duration-300 shadow-2xl active:scale-98"
+          >
+            <div className="relative aspect-video rounded-lg overflow-hidden mb-1.5 bg-neutral-950">
+              <img 
+                src={bombDefuserCover} 
+                alt="bomb defuser challenge"
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                onError={(e) => {
+                  // Beautiful fallback
+                  e.currentTarget.style.display = 'none';
+                  const container = e.currentTarget.parentElement;
+                  if (container) {
+                    const label = document.createElement('div');
+                    label.className = 'absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-neutral-900 to-neutral-950 p-2 text-center';
+                    label.innerHTML = `
+                      <span class="text-xl mb-0.5">💣</span>
+                      <span class="text-[10px] font-semibold text-white tracking-wider uppercase">bomb defuser</span>
+                    `;
+                    container.appendChild(label);
+                  }
+                }}
+              />
+              <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span className="text-[10px] bg-white text-black px-2.5 py-1 rounded-full font-medium tracking-wider uppercase shadow-lg flex items-center gap-1">
+                  <svg className="w-2.5 h-2.5 fill-current" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                  play
+                </span>
+              </div>
             </div>
-            <span className="text-xs text-neutral-400 group-hover:text-white transition-colors translate-x-0 group-hover:translate-x-0.5 duration-200">
-              →
-            </span>
+            <div className="flex items-center justify-between px-1">
+              <div className="flex flex-col">
+                <span className="text-[11px] font-medium text-white tracking-wide group-hover:text-white transition-colors truncate max-w-[110px] md:max-w-[130px]">bomb defuser</span>
+                <span className="text-[9px] text-white/50 font-mono lowercase">bombdefuser.app</span>
+              </div>
+              <span className="text-xs text-neutral-400 group-hover:text-white transition-colors translate-x-0 group-hover:translate-x-0.5 duration-200">
+                →
+              </span>
+            </div>
           </div>
         </div>
 
@@ -473,6 +528,40 @@ export default function App() {
             <iframe 
               src="https://typerfish.vercel.app/" 
               title="Typerfish Game"
+              className="w-full h-full border-none"
+              allow="autoplay; keyboard; clipboard-write"
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Bomb Defuser Game Overlay Modal */}
+      {isBombDefuserOpen && (
+        <div 
+          id="bombdefuser-game-overlay"
+          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex flex-col items-center justify-center p-4 md:p-6 animate-in fade-in zoom-in-95 duration-300 pointer-events-auto"
+        >
+          {/* Top Control Bar */}
+          <div className="w-full max-w-5xl flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-rose-500 animate-ping" />
+              <span className="text-xs tracking-wider font-mono text-rose-400 uppercase font-semibold">
+                ⚠️ warning: active bomb defuser connection
+              </span>
+            </div>
+            <button
+              onClick={() => setIsBombDefuserOpen(false)}
+              className="flex items-center gap-1.5 px-4 py-2 rounded-full border border-rose-500/20 bg-rose-950/20 text-rose-300 hover:bg-rose-500 hover:text-white transition-all duration-200 cursor-pointer text-xs font-mono lowercase"
+            >
+              ✕ close game
+            </button>
+          </div>
+
+          {/* Game Iframe Container */}
+          <div className="w-full max-w-5xl flex-1 bg-neutral-950 border border-white/10 rounded-2xl overflow-hidden shadow-2xl relative">
+            <iframe 
+              src="https://bombdefuser-eight.vercel.app/" 
+              title="Bomb Defuser Game"
               className="w-full h-full border-none"
               allow="autoplay; keyboard; clipboard-write"
             />
