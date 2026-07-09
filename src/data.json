@@ -1,0 +1,62 @@
+[
+  {
+    "emojis": "🍏 👓 📱 💻",
+    "answer": "steve jobs",
+    "options": ["bill gates", "steve jobs", "tim cook", "elon musk"],
+    "hints": [
+      "he co-founded a fruit-named tech giant.",
+      "famous for wearing a black turtleneck and giving 'one more thing' keynotes."
+    ],
+    "imageUrl": "https://share.google/ph4jhNo1RBz0bclen"
+  },
+  {
+    "emojis": "👽 🔌 🚘 🚀",
+    "answer": "elon musk",
+    "options": ["jeff bezos", "elon musk", "richard branson", "nikola tesla"],
+    "hints": [
+      "he wants to colonize mars.",
+      "ceo of tesla and spacex."
+    ],
+    "imageUrl": "https://share.google/ph4jhNo1RBz0bclen"
+  },
+  {
+    "emojis": "⚡ 👓 🪄 🦉",
+    "answer": "harry potter",
+    "options": ["gandalf", "percy jackson", "harry potter", "sherlock holmes"],
+    "hints": [
+      "the boy who lived.",
+      "has a lightning bolt scar on his forehead."
+    ],
+    "imageUrl": "https://share.google/JuEZaXjx6RNC8YvrK"
+  },
+  {
+    "emojis": "🎨 🌌 👂 🌻",
+    "answer": "vincent van gogh",
+    "options": ["pablo picasso", "vincent van gogh", "claude monet", "andy warhol"],
+    "hints": [
+      "dutch post-impressionist painter who cut off his own left ear.",
+      "painted 'the starry night' while in an asylum."
+    ],
+    "imageUrl": "https://share.google/8nf2NHmV7ijhJKLUq"
+  },
+  {
+    "emojis": "🏀 🐐 🔴 🐂",
+    "answer": "michael jordan",
+    "options": ["kobe bryant", "lebron james", "michael jordan", "shaquille o'neal"],
+    "hints": [
+      "widely considered the greatest basketball player of all time.",
+      "won six nba championships with the chicago bulls."
+    ],
+    "imageUrl": "https://share.google/tpcweH07ZdZTvs2y8"
+  },
+  {
+    "emojis": "👑 🎤 💃 🐝",
+    "answer": "beyoncé",
+    "options": ["rihanna", "taylor swift", "beyoncé", "madonna"],
+    "hints": [
+      "her fans are affectionately known as the 'beyhive'.",
+      "sang 'single ladies' and 'crazy in love'."
+    ],
+    "imageUrl": "https://share.google/IIeJUAaHyVN5Opjia"
+  }
+]

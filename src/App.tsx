@@ -4,54 +4,31 @@
  */
 
 import React, { useState } from 'react';
+import QUESTIONS_DATA from './data.json';
 
 interface Question {
   emojis: string;
   answer: string;
   options: string[];
+  hints: string[];
+  imageUrl: string;
 }
 
-const QUESTIONS: Question[] = [
-  {
-    emojis: '🍏 👓 📱 💻',
-    answer: 'steve jobs',
-    options: ['bill gates', 'steve jobs', 'tim cook', 'elon musk']
-  },
-  {
-    emojis: '👽 🔌 🚘 🚀',
-    answer: 'elon musk',
-    options: ['jeff bezos', 'elon musk', 'richard branson', 'nikola tesla']
-  },
-  {
-    emojis: '⚡ 👓 🪄 🦉',
-    answer: 'harry potter',
-    options: ['gandalf', 'percy jackson', 'harry potter', 'sherlock holmes']
-  },
-  {
-    emojis: '🎨 🌌 👂 🌻',
-    answer: 'vincent van gogh',
-    options: ['pablo picasso', 'vincent van gogh', 'claude monet', 'andy warhol']
-  },
-  {
-    emojis: '🏀 🐐 🔴 🐂',
-    answer: 'michael jordan',
-    options: ['kobe bryant', 'lebron james', 'michael jordan', 'shaquille o\'neal']
-  },
-  {
-    emojis: '👑 🎤 💃 🐝',
-    answer: 'beyoncé',
-    options: ['rihanna', 'taylor swift', 'beyoncé', 'madonna']
-  }
-];
+const QUESTIONS = QUESTIONS_DATA as Question[];
 
 export default function App() {
   // Game States
   const [isGameOpen, setIsGameOpen] = useState(false);
+  const [isTyperfishOpen, setIsTyperfishOpen] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
+  const [hint1Revealed, setHint1Revealed] = useState(false);
+  const [hint2Revealed, setHint2Revealed] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
+  const [isInstagramOpen, setIsInstagramOpen] = useState(false);
 
   const currentQuestion = QUESTIONS[currentQuestionIndex];
 
@@ -69,6 +46,8 @@ export default function App() {
       setCurrentQuestionIndex((prev) => prev + 1);
       setSelectedAnswer(null);
       setIsAnswered(false);
+      setHint1Revealed(false);
+      setHint2Revealed(false);
     } else {
       setIsFinished(true);
     }
@@ -80,6 +59,8 @@ export default function App() {
     setSelectedAnswer(null);
     setIsAnswered(false);
     setIsFinished(false);
+    setHint1Revealed(false);
+    setHint2Revealed(false);
   };
 
   return (
@@ -108,18 +89,27 @@ export default function App() {
           {/* Left Pill (Logo & Brand Name) */}
           <div 
             id="brand-logo-pill" 
-            className="flex items-center gap-2 bg-neutral-900/90 backdrop-blur rounded-full pl-4 pr-6 py-3"
+            className="flex items-center gap-2 bg-neutral-900/90 backdrop-blur rounded-full pl-4.5 pr-5.5 py-2.5"
           >
             <svg 
               id="brand-logo-svg"
-              viewBox="0 0 256 256" 
-              className="h-5 w-5 shrink-0"
-              fill="#ffffff"
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="2.5" 
+              strokeLinecap="round" 
+              className="h-5.5 w-5.5 shrink-0 text-white"
             >
-              <path d="M 128 192 L 128 256 L 64.5 256 L 32 223 L 0 192 L 0 128 L 64 128 Z M 256 192 L 256 256 L 192.5 256 L 160 223 L 128 192 L 128 128 L 192 128 Z M 128 64 L 128 128 L 64.5 128 L 32 95 L 0 64 L 0 0 L 64 0 Z M 256 64 L 256 128 L 192.5 128 L 160 95 L 128 64 L 128 0 L 192 0 Z" />
+              {/* Left Ski */}
+              <path d="M6 19 L11 5 C11.3 4.2 12 3.5 12.8 3.5 C13.5 3.5 14 4 14 4.8 L13.5 6" />
+              {/* Right Ski */}
+              <path d="M9 19 L14 5 C14.3 4.2 15 3.5 15.8 3.5 C16.5 3.5 17 4 17 4.8 L16.5 6" />
+              {/* Crossed poles */}
+              <path d="M4 16 L17 9" strokeWidth="1" opacity="0.5" />
+              <path d="M6 8 L16 17" strokeWidth="1" opacity="0.5" />
             </svg>
-            <span className="text-white text-sm font-normal tracking-tight select-none">
-              securify
+            <span className="text-white text-sm font-medium tracking-wide select-none lowercase font-sans">
+              ski
             </span>
           </div>
 
@@ -128,39 +118,25 @@ export default function App() {
             id="nav-links-pill" 
             className="hidden md:flex items-center gap-1 bg-neutral-900/90 backdrop-blur rounded-full px-3 py-2"
           >
-            <a 
-              href="#platform" 
-              className="text-neutral-300 hover:text-white transition-colors text-sm px-5 py-2 rounded-full"
+            <button 
+              onClick={() => setIsContactOpen(true)}
+              className="text-neutral-300 hover:text-white transition-colors text-sm px-5 py-2 rounded-full cursor-pointer"
             >
-              platform
-            </a>
-            <a 
-              href="#solutions" 
-              className="text-neutral-300 hover:text-white transition-colors text-sm px-5 py-2 rounded-full"
+              holboo barih
+            </button>
+            <button 
+              onClick={() => setIsInstagramOpen(true)}
+              className="text-neutral-300 hover:text-white transition-colors text-sm px-5 py-2 rounded-full cursor-pointer"
             >
-              solutions
-            </a>
-            <a 
-              href="#company" 
-              className="text-neutral-300 hover:text-white transition-colors text-sm px-5 py-2 rounded-full"
+              instagram
+            </button>
+            <button 
+              onClick={() => setIsGameOpen((prev) => !prev)}
+              className="text-neutral-300 hover:text-white transition-colors text-sm px-5 py-2 rounded-full cursor-pointer"
             >
-              company
-            </a>
-            <a 
-              href="#support" 
-              className="text-neutral-300 hover:text-white transition-colors text-sm px-5 py-2 rounded-full"
-            >
-              support
-            </a>
+              proof of humanity
+            </button>
           </div>
-
-          {/* Right Button */}
-          <button 
-            id="get-started-btn" 
-            className="bg-white text-black text-sm font-medium rounded-full px-6 py-3 hover:bg-neutral-200 transition-colors cursor-pointer shrink-0"
-          >
-            get started
-          </button>
         </nav>
       </div>
 
@@ -196,6 +172,54 @@ export default function App() {
         >
           Namaig Orgil gedeg. 111r surguuliin 8b angid suraltsdag. Chuluut tsagaaraa mtb buyu uuliin dugui unah durtai. Mun motocross sonirhdog.
         </p>
+
+        {/* Typerfish Game Widget Card */}
+        <div 
+          id="typerfish-launcher-card"
+          onClick={() => setIsTyperfishOpen(true)}
+          className="absolute left-6 md:left-10 top-[66%] md:top-[64%] z-20 pointer-events-auto group cursor-pointer bg-neutral-900/90 backdrop-blur-md border border-white/10 rounded-xl p-2 w-[200px] md:w-[220px] hover:border-white/20 hover:bg-neutral-900 transition-all duration-300 shadow-2xl active:scale-98"
+        >
+          <div className="relative aspect-video rounded-lg overflow-hidden mb-1.5 bg-neutral-950">
+            <img 
+              src="https://share.google/a5Kr0CAitB24W0Fn6" 
+              alt="typerfish challenge"
+              referrerPolicy="no-referrer"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              onError={(e) => {
+                // Beautiful fallback in case image direct access hits restriction
+                e.currentTarget.style.display = 'none';
+                const container = e.currentTarget.parentElement;
+                if (container) {
+                  const label = document.createElement('div');
+                  label.className = 'absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-neutral-900 to-neutral-950 p-2 text-center';
+                  label.innerHTML = `
+                    <span class="text-2xl mb-0.5">🐟</span>
+                    <span class="text-[10px] font-semibold text-white tracking-wider uppercase">typerfish</span>
+                    <span class="text-[8px] text-white/40 uppercase mt-0.5">tap to type & race</span>
+                  `;
+                  container.appendChild(label);
+                }
+              }}
+            />
+            <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span className="text-[10px] bg-white text-black px-2.5 py-1 rounded-full font-medium tracking-wider uppercase shadow-lg flex items-center gap-1">
+                <svg className="w-2.5 h-2.5 fill-current" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                play
+              </span>
+            </div>
+          </div>
+          <div className="flex items-center justify-between px-1">
+            <div className="flex flex-col">
+              <span className="text-[11px] font-medium text-white tracking-wide group-hover:text-white transition-colors">typerfish challenge</span>
+              <span className="text-[9px] text-white/50 font-mono lowercase">typerfish.vercel.app</span>
+            </div>
+            <span className="text-xs text-neutral-400 group-hover:text-white transition-colors translate-x-0 group-hover:translate-x-0.5 duration-200">
+              →
+            </span>
+          </div>
+        </div>
 
         {/* Stat Block - Top-Right */}
         <div 
@@ -246,26 +270,7 @@ export default function App() {
         </div>
       </div>
 
-      {/* Floating Guessing Game Trigger */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 pointer-events-auto">
-        <button
-          id="toggle-game-btn"
-          onClick={() => setIsGameOpen(!isGameOpen)}
-          className={`flex items-center gap-2.5 px-5 py-3 rounded-full border border-white/10 backdrop-blur-md transition-all duration-300 ${
-            isGameOpen 
-              ? 'bg-white text-black hover:bg-neutral-200' 
-              : 'bg-neutral-900/90 text-white hover:bg-neutral-800'
-          }`}
-        >
-          <span className="relative flex h-2 w-2">
-            <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isGameOpen ? 'bg-black' : 'bg-emerald-400'}`}></span>
-            <span className={`relative inline-flex rounded-full h-2 w-2 ${isGameOpen ? 'bg-black' : 'bg-emerald-500'}`}></span>
-          </span>
-          <span className="text-xs font-medium tracking-wider uppercase font-sans">
-            {isGameOpen ? 'close challenge' : 'proof of humanity'}
-          </span>
-        </button>
-      </div>
+
 
       {/* Emoji guessing game interactive card */}
       {isGameOpen && (
@@ -288,8 +293,77 @@ export default function App() {
                 guess the public figure from these emojis:
               </p>
               
-              <div className="flex items-center justify-center bg-neutral-900/50 border border-white/5 rounded-xl py-6 mb-4 text-4xl select-none tracking-widest">
-                {currentQuestion.emojis}
+              {isAnswered && selectedAnswer === currentQuestion.answer ? (
+                <div className="relative h-32 w-full rounded-xl overflow-hidden mb-4 border border-emerald-500/40 bg-emerald-950/20 flex flex-col justify-end animate-in fade-in duration-300">
+                  <img 
+                    src={currentQuestion.imageUrl} 
+                    alt={currentQuestion.answer}
+                    referrerPolicy="no-referrer"
+                    className="absolute inset-0 w-full h-full object-cover opacity-80"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/40 to-transparent pointer-events-none" />
+                  <div className="relative z-10 p-3 flex items-center justify-between">
+                    <span className="text-xs text-emerald-400 font-mono tracking-wider uppercase flex items-center gap-1">
+                      ✓ {currentQuestion.answer}
+                    </span>
+                    <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full uppercase tracking-wider font-mono">
+                      correct match
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex items-center justify-center bg-neutral-900/50 border border-white/5 rounded-xl py-6 mb-4 text-4xl select-none tracking-widest relative">
+                  {currentQuestion.emojis}
+                </div>
+              )}
+
+              {/* Hints Section */}
+              <div className="mb-4">
+                <div className="flex items-center gap-2 justify-between mb-2">
+                  <span className="text-[10px] text-neutral-400 font-mono uppercase tracking-wider">hints:</span>
+                  <div className="flex gap-1.5">
+                    <button
+                      type="button"
+                      onClick={() => setHint1Revealed(true)}
+                      disabled={hint1Revealed}
+                      className={`text-[10px] px-2.5 py-1 rounded-full border transition-all cursor-pointer font-mono ${
+                        hint1Revealed 
+                          ? 'border-neutral-800 text-neutral-500 bg-transparent' 
+                          : 'border-white/10 text-white/80 bg-neutral-900 hover:border-white/20'
+                      }`}
+                    >
+                      {hint1Revealed ? 'hint 1' : 'show hint 1'}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setHint2Revealed(true)}
+                      disabled={hint2Revealed}
+                      className={`text-[10px] px-2.5 py-1 rounded-full border transition-all cursor-pointer font-mono ${
+                        hint2Revealed 
+                          ? 'border-neutral-800 text-neutral-500 bg-transparent' 
+                          : 'border-white/10 text-white/80 bg-neutral-900 hover:border-white/20'
+                      }`}
+                    >
+                      {hint2Revealed ? 'hint 2' : 'show hint 2'}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Hint Text Reveal boxes */}
+                {(hint1Revealed || hint2Revealed) && (
+                  <div className="flex flex-col gap-1.5 bg-neutral-900/40 border border-white/5 rounded-xl p-3 animate-in fade-in slide-in-from-top-1 duration-200">
+                    {hint1Revealed && (
+                      <p className="text-[11px] text-white/80 leading-normal font-light lowercase">
+                        <span className="text-white/40 font-mono mr-1">hint 1:</span> {currentQuestion.hints[0]}
+                      </p>
+                    )}
+                    {hint2Revealed && (
+                      <p className="text-[11px] text-white/80 leading-normal font-light lowercase">
+                        <span className="text-white/40 font-mono mr-1">hint 2:</span> {currentQuestion.hints[1]}
+                      </p>
+                    )}
+                  </div>
+                )}
               </div>
 
               <div className="grid grid-cols-1 gap-2 mb-4">
@@ -369,6 +443,178 @@ export default function App() {
               </button>
             </div>
           )}
+        </div>
+      )}
+
+      {/* Typerfish Game Overlay Modal */}
+      {isTyperfishOpen && (
+        <div 
+          id="typerfish-game-overlay"
+          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex flex-col items-center justify-center p-4 md:p-6 animate-in fade-in zoom-in-95 duration-300 pointer-events-auto"
+        >
+          {/* Top Control Bar */}
+          <div className="w-full max-w-5xl flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-xs tracking-wider font-mono text-neutral-400 uppercase">
+                typerfish connection established
+              </span>
+            </div>
+            <button
+              onClick={() => setIsTyperfishOpen(false)}
+              className="flex items-center gap-1.5 px-4 py-2 rounded-full border border-white/10 bg-neutral-900/90 text-white hover:bg-white hover:text-black transition-all duration-200 cursor-pointer text-xs font-mono lowercase"
+            >
+              ✕ close game
+            </button>
+          </div>
+
+          {/* Game Iframe Container */}
+          <div className="w-full max-w-5xl flex-1 bg-neutral-950 border border-white/10 rounded-2xl overflow-hidden shadow-2xl relative">
+            <iframe 
+              src="https://typerfish.vercel.app/" 
+              title="Typerfish Game"
+              className="w-full h-full border-none"
+              allow="autoplay; keyboard; clipboard-write"
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Contact Details Overlay Modal */}
+      {isContactOpen && (
+        <div 
+          id="contact-overlay"
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in zoom-in-95 duration-200 pointer-events-auto"
+          onClick={() => setIsContactOpen(false)}
+        >
+          <div 
+            className="w-full max-w-[340px] bg-neutral-950 border border-white/10 rounded-2xl p-6 shadow-2xl relative flex flex-col text-white"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-5">
+              <span className="text-xs tracking-wider text-neutral-400 font-medium uppercase font-mono">
+                holboo barih
+              </span>
+              <button
+                onClick={() => setIsContactOpen(false)}
+                className="text-neutral-400 hover:text-white transition-colors cursor-pointer text-sm font-mono"
+              >
+                ✕
+              </button>
+            </div>
+
+            <p className="text-xs text-neutral-400 mb-5 leading-normal lowercase font-light">
+              doroh holboosoor shuud holbogdoh bolomjtoi:
+            </p>
+
+            <div className="flex flex-col gap-3">
+              {/* Phone contact */}
+              <a 
+                href="tel:+97694141978"
+                className="flex items-center justify-between p-3.5 rounded-xl border border-white/10 bg-neutral-900/40 hover:bg-neutral-900 hover:border-white/20 transition-all duration-200 group"
+              >
+                <div className="flex flex-col">
+                  <span className="text-[10px] text-neutral-500 font-mono uppercase tracking-wider">утас</span>
+                  <span className="text-sm font-medium text-white font-mono mt-0.5 group-hover:text-white">+976 9414 1978</span>
+                </div>
+                <span className="text-xs text-neutral-400 group-hover:text-white transition-all group-hover:translate-x-0.5 duration-200">
+                  zalgah →
+                </span>
+              </a>
+
+              {/* Email contact */}
+              <a 
+                href="mailto:orgiltseren814@gmail.com"
+                className="flex items-center justify-between p-3.5 rounded-xl border border-white/10 bg-neutral-900/40 hover:bg-neutral-900 hover:border-white/20 transition-all duration-200 group"
+              >
+                <div className="flex flex-col">
+                  <span className="text-[10px] text-neutral-500 font-mono uppercase tracking-wider">мэйл</span>
+                  <span className="text-sm font-medium text-white font-mono mt-0.5 group-hover:text-white">orgiltseren814@gmail.com</span>
+                </div>
+                <span className="text-xs text-neutral-400 group-hover:text-white transition-all group-hover:translate-x-0.5 duration-200">
+                  bichih →
+                </span>
+              </a>
+            </div>
+
+            <button
+              onClick={() => setIsContactOpen(false)}
+              className="mt-6 w-full bg-white text-black py-2.5 rounded-xl text-sm font-medium hover:bg-neutral-200 transition-colors cursor-pointer text-center lowercase"
+            >
+              haah
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Instagram Selection Overlay Modal */}
+      {isInstagramOpen && (
+        <div 
+          id="instagram-overlay"
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in zoom-in-95 duration-200 pointer-events-auto"
+          onClick={() => setIsInstagramOpen(false)}
+        >
+          <div 
+            className="w-full max-w-[340px] bg-neutral-950 border border-white/10 rounded-2xl p-6 shadow-2xl relative flex flex-col text-white"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-5">
+              <span className="text-xs tracking-wider text-neutral-400 font-medium uppercase font-mono">
+                instagram сонгох
+              </span>
+              <button
+                onClick={() => setIsInstagramOpen(false)}
+                className="text-neutral-400 hover:text-white transition-colors cursor-pointer text-sm font-mono"
+              >
+                ✕
+              </button>
+            </div>
+
+            <p className="text-xs text-neutral-400 mb-5 leading-normal lowercase font-light">
+              зочлохыг хүссэн инстаграм хаягаа сонгоно уу:
+            </p>
+
+            <div className="flex flex-col gap-3">
+              {/* Orgil9_ instagram */}
+              <a 
+                href="https://instagram.com/orgil9_"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-3.5 rounded-xl border border-white/10 bg-neutral-900/40 hover:bg-neutral-900 hover:border-white/20 transition-all duration-200 group"
+              >
+                <div className="flex flex-col">
+                  <span className="text-[10px] text-neutral-500 font-mono uppercase tracking-wider">оргил</span>
+                  <span className="text-sm font-medium text-white font-mono mt-0.5 group-hover:text-white">@orgil9_</span>
+                </div>
+                <span className="text-xs text-neutral-400 group-hover:text-white transition-all group-hover:translate-x-0.5 duration-200">
+                  зочлох →
+                </span>
+              </a>
+
+              {/* Tamirmadsuey instagram */}
+              <a 
+                href="https://instagram.com/tamirmadsuey"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-3.5 rounded-xl border border-white/10 bg-neutral-900/40 hover:bg-neutral-900 hover:border-white/20 transition-all duration-200 group"
+              >
+                <div className="flex flex-col">
+                  <span className="text-[10px] text-neutral-500 font-mono uppercase tracking-wider">тамир</span>
+                  <span className="text-sm font-medium text-white font-mono mt-0.5 group-hover:text-white">@tamirmadsuey</span>
+                </div>
+                <span className="text-xs text-neutral-400 group-hover:text-white transition-all group-hover:translate-x-0.5 duration-200">
+                  зочлох →
+                </span>
+              </a>
+            </div>
+
+            <button
+              onClick={() => setIsInstagramOpen(false)}
+              className="mt-6 w-full bg-white text-black py-2.5 rounded-xl text-sm font-medium hover:bg-neutral-200 transition-colors cursor-pointer text-center lowercase"
+            >
+              haah
+            </button>
+          </div>
         </div>
       )}
     </section>
