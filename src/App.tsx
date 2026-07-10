@@ -7,6 +7,8 @@ import React, { useState } from 'react';
 import QUESTIONS_DATA from './data.json';
 // @ts-ignore
 import bombDefuserCover from './assets/images/bomb_defuser_cover_1783617943672.jpg';
+// @ts-ignore
+import mtbTextBg from './assets/images/mtb_text_bg_1783620419868.jpg';
 
 interface Question {
   emojis: string;
@@ -16,13 +18,16 @@ interface Question {
   imageUrl: string;
 }
 
-const QUESTIONS = QUESTIONS_DATA as Question[];
+const QUESTIONS = QUESTIONS_DATA.questions as Question[];
+const LEADERBOARDS = QUESTIONS_DATA.leaderboards;
 
 export default function App() {
   // Game States
   const [isGameOpen, setIsGameOpen] = useState(false);
   const [isTyperfishOpen, setIsTyperfishOpen] = useState(false);
   const [isBombDefuserOpen, setIsBombDefuserOpen] = useState(false);
+  const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false);
+  const [activeLeaderboardTab, setActiveLeaderboardTab] = useState<'proofOfHumanity' | 'typerfish' | 'bombDefuser'>('proofOfHumanity');
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -116,28 +121,34 @@ export default function App() {
             </span>
           </div>
 
-          {/* Center Pill (Hidden on Mobile) */}
+          {/* Center Pill */}
           <div 
             id="nav-links-pill" 
-            className="hidden md:flex items-center gap-1 bg-neutral-900/90 backdrop-blur rounded-full px-3 py-2"
+            className="flex items-center gap-0.5 md:gap-1 bg-neutral-900/90 backdrop-blur rounded-full px-2 py-1.5 md:px-3 md:py-2 overflow-x-auto scrollbar-none max-w-[65vw] sm:max-w-none shrink"
           >
             <button 
               onClick={() => setIsContactOpen(true)}
-              className="text-neutral-300 hover:text-white transition-colors text-sm px-5 py-2 rounded-full cursor-pointer"
+              className="text-neutral-300 hover:text-white transition-colors text-[11px] md:text-sm px-3 md:px-5 py-1.5 md:py-2 rounded-full cursor-pointer whitespace-nowrap shrink-0"
             >
               holboo barih
             </button>
             <button 
               onClick={() => setIsInstagramOpen(true)}
-              className="text-neutral-300 hover:text-white transition-colors text-sm px-5 py-2 rounded-full cursor-pointer"
+              className="text-neutral-300 hover:text-white transition-colors text-[11px] md:text-sm px-3 md:px-5 py-1.5 md:py-2 rounded-full cursor-pointer whitespace-nowrap shrink-0"
             >
               instagram
             </button>
             <button 
               onClick={() => setIsGameOpen((prev) => !prev)}
-              className="text-neutral-300 hover:text-white transition-colors text-sm px-5 py-2 rounded-full cursor-pointer"
+              className="text-neutral-300 hover:text-white transition-colors text-[11px] md:text-sm px-3 md:px-5 py-1.5 md:py-2 rounded-full cursor-pointer whitespace-nowrap shrink-0"
             >
               proof of humanity
+            </button>
+            <button 
+              onClick={() => setIsLeaderboardOpen(true)}
+              className="text-neutral-300 hover:text-white transition-colors text-[11px] md:text-sm px-3 md:px-5 py-1.5 md:py-2 rounded-full cursor-pointer whitespace-nowrap shrink-0"
+            >
+              leaderboard
             </button>
           </div>
         </nav>
@@ -146,24 +157,27 @@ export default function App() {
       {/* Foreground Content Wrapper */}
       <div className="relative z-10 h-full w-full">
         
-        {/* Three Giant Staggered Headline Words */}
+        {/* Three Giant Staggered Headline Words with MTB Image Background Mask */}
         <h1 
           id="heading-protect" 
-          className="hero-title absolute text-white font-medium text-[13vw] left-6 md:left-10 top-[16%] select-none tracking-tighter"
+          className="hero-title absolute font-black text-[13vw] left-6 md:left-10 top-[16%] select-none tracking-tighter bg-clip-text text-transparent bg-cover bg-center uppercase"
+          style={{ backgroundImage: `url(${mtbTextBg})` }}
         >
           protect
         </h1>
         
         <h1 
           id="heading-your" 
-          className="hero-title absolute text-white font-medium text-[13vw] right-6 md:right-10 top-[36%] select-none tracking-tighter"
+          className="hero-title absolute font-black text-[13vw] right-6 md:right-10 top-[36%] select-none tracking-tighter bg-clip-text text-transparent bg-cover bg-center uppercase"
+          style={{ backgroundImage: `url(${mtbTextBg})` }}
         >
           your
         </h1>
         
         <h1 
           id="heading-data" 
-          className="hero-title absolute text-white font-medium text-[13vw] left-[18%] md:left-[28%] top-[56%] select-none tracking-tighter"
+          className="hero-title absolute font-black text-[13vw] left-[18%] md:left-[28%] top-[56%] select-none tracking-tighter bg-clip-text text-transparent bg-cover bg-center uppercase"
+          style={{ backgroundImage: `url(${mtbTextBg})` }}
         >
           data
         </h1>
@@ -699,6 +713,181 @@ export default function App() {
 
             <button
               onClick={() => setIsInstagramOpen(false)}
+              className="mt-6 w-full bg-white text-black py-2.5 rounded-xl text-sm font-medium hover:bg-neutral-200 transition-colors cursor-pointer text-center lowercase"
+            >
+              haah
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Unified Leaderboards Overlay Modal */}
+      {isLeaderboardOpen && (
+        <div 
+          id="leaderboards-overlay"
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in zoom-in-95 duration-200 pointer-events-auto"
+          onClick={() => setIsLeaderboardOpen(false)}
+        >
+          <div 
+            className="w-full max-w-md bg-neutral-950 border border-white/10 rounded-2xl p-5 shadow-2xl relative flex flex-col text-white max-h-[85vh]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-4">
+              <span className="text-xs tracking-wider text-neutral-400 font-medium uppercase font-mono flex items-center gap-1.5">
+                🏆 unified leaderboards
+              </span>
+              <button
+                onClick={() => setIsLeaderboardOpen(false)}
+                className="text-neutral-400 hover:text-white transition-colors cursor-pointer text-sm font-mono"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Game Tabs */}
+            <div className="flex bg-neutral-900/60 p-1 rounded-xl gap-1 mb-4 border border-white/5 overflow-x-auto scrollbar-none">
+              <button
+                onClick={() => setActiveLeaderboardTab('proofOfHumanity')}
+                className={`flex-1 py-1.5 px-2.5 rounded-lg text-[10px] md:text-xs font-medium transition-all cursor-pointer whitespace-nowrap text-center ${
+                  activeLeaderboardTab === 'proofOfHumanity'
+                    ? 'bg-white text-black font-semibold'
+                    : 'text-neutral-400 hover:text-white'
+                }`}
+              >
+                emoji guesser
+              </button>
+              <button
+                onClick={() => setActiveLeaderboardTab('typerfish')}
+                className={`flex-1 py-1.5 px-2.5 rounded-lg text-[10px] md:text-xs font-medium transition-all cursor-pointer whitespace-nowrap text-center ${
+                  activeLeaderboardTab === 'typerfish'
+                    ? 'bg-white text-black font-semibold'
+                    : 'text-neutral-400 hover:text-white'
+                }`}
+              >
+                typerfish
+              </button>
+              <button
+                onClick={() => setActiveLeaderboardTab('bombDefuser')}
+                className={`flex-1 py-1.5 px-2.5 rounded-lg text-[10px] md:text-xs font-medium transition-all cursor-pointer whitespace-nowrap text-center ${
+                  activeLeaderboardTab === 'bombDefuser'
+                    ? 'bg-white text-black font-semibold'
+                    : 'text-neutral-400 hover:text-white'
+                }`}
+              >
+                bomb defuser
+              </button>
+            </div>
+
+            {/* Active Leaderboard Table */}
+            <div className="flex-1 overflow-y-auto pr-1 scrollbar-none">
+              {activeLeaderboardTab === 'proofOfHumanity' && (
+                <div className="flex flex-col gap-2">
+                  <div className="grid grid-cols-12 px-3 py-1.5 text-[9px] font-mono uppercase tracking-wider text-neutral-500 font-semibold">
+                    <span className="col-span-2">rank</span>
+                    <span className="col-span-5">player</span>
+                    <span className="col-span-3 text-right">score</span>
+                    <span className="col-span-2 text-right">time</span>
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    {LEADERBOARDS.proofOfHumanity.map((player: any) => (
+                      <div 
+                        key={player.rank}
+                        className={`grid grid-cols-12 items-center px-3 py-2.5 rounded-xl border ${
+                          player.username === "Orgil" 
+                            ? 'bg-emerald-950/20 border-emerald-500/20 text-emerald-100 animate-pulse' 
+                            : 'bg-neutral-900/30 border-white/5 text-neutral-200'
+                        }`}
+                      >
+                        <span className="col-span-2 font-mono text-xs flex items-center">
+                          {player.rank === 1 ? '🥇' : player.rank === 2 ? '🥈' : player.rank === 3 ? '🥉' : `#${player.rank}`}
+                        </span>
+                        <span className="col-span-5 font-medium text-xs truncate flex items-center gap-1">
+                          {player.username}
+                          {player.username === "Orgil" && (
+                            <span className="text-[8px] bg-emerald-500/25 text-emerald-300 px-1 py-0.5 rounded uppercase font-mono">you</span>
+                          )}
+                        </span>
+                        <span className="col-span-3 text-right font-mono text-xs font-medium">{player.score}</span>
+                        <span className="col-span-2 text-right font-mono text-xs text-neutral-400">{player.time}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {activeLeaderboardTab === 'typerfish' && (
+                <div className="flex flex-col gap-2">
+                  <div className="grid grid-cols-12 px-3 py-1.5 text-[9px] font-mono uppercase tracking-wider text-neutral-500 font-semibold">
+                    <span className="col-span-2">rank</span>
+                    <span className="col-span-5">player</span>
+                    <span className="col-span-3 text-right">wpm</span>
+                    <span className="col-span-2 text-right">accuracy</span>
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    {LEADERBOARDS.typerfish.map((player: any) => (
+                      <div 
+                        key={player.rank}
+                        className={`grid grid-cols-12 items-center px-3 py-2.5 rounded-xl border ${
+                          player.username === "Orgil" 
+                            ? 'bg-emerald-950/20 border-emerald-500/20 text-emerald-100 animate-pulse' 
+                            : 'bg-neutral-900/30 border-white/5 text-neutral-200'
+                        }`}
+                      >
+                        <span className="col-span-2 font-mono text-xs flex items-center">
+                          {player.rank === 1 ? '🥇' : player.rank === 2 ? '🥈' : player.rank === 3 ? '🥉' : `#${player.rank}`}
+                        </span>
+                        <span className="col-span-5 font-medium text-xs truncate flex items-center gap-1">
+                          {player.username}
+                          {player.username === "Orgil" && (
+                            <span className="text-[8px] bg-emerald-500/25 text-emerald-300 px-1 py-0.5 rounded uppercase font-mono">you</span>
+                          )}
+                        </span>
+                        <span className="col-span-3 text-right font-mono text-xs font-medium text-amber-400">{player.wpm}</span>
+                        <span className="col-span-2 text-right font-mono text-xs text-neutral-400">{player.accuracy}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {activeLeaderboardTab === 'bombDefuser' && (
+                <div className="flex flex-col gap-2">
+                  <div className="grid grid-cols-12 px-3 py-1.5 text-[9px] font-mono uppercase tracking-wider text-neutral-500 font-semibold">
+                    <span className="col-span-2">rank</span>
+                    <span className="col-span-5">player</span>
+                    <span className="col-span-3 text-right">score</span>
+                    <span className="col-span-2 text-right">defuses</span>
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    {LEADERBOARDS.bombDefuser.map((player: any) => (
+                      <div 
+                        key={player.rank}
+                        className={`grid grid-cols-12 items-center px-3 py-2.5 rounded-xl border ${
+                          player.username === "Orgil" 
+                            ? 'bg-emerald-950/20 border-emerald-500/20 text-emerald-100 animate-pulse' 
+                            : 'bg-neutral-900/30 border-white/5 text-neutral-200'
+                        }`}
+                      >
+                        <span className="col-span-2 font-mono text-xs flex items-center">
+                          {player.rank === 1 ? '🥇' : player.rank === 2 ? '🥈' : player.rank === 3 ? '🥉' : `#${player.rank}`}
+                        </span>
+                        <span className="col-span-5 font-medium text-xs truncate flex items-center gap-1">
+                          {player.username}
+                          {player.username === "Orgil" && (
+                            <span className="text-[8px] bg-emerald-500/25 text-emerald-300 px-1 py-0.5 rounded uppercase font-mono">you</span>
+                          )}
+                        </span>
+                        <span className="col-span-3 text-right font-mono text-xs font-medium text-rose-400">{player.score}</span>
+                        <span className="col-span-2 text-right font-mono text-xs text-neutral-400">{player.defuses}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <button
+              onClick={() => setIsLeaderboardOpen(false)}
               className="mt-6 w-full bg-white text-black py-2.5 rounded-xl text-sm font-medium hover:bg-neutral-200 transition-colors cursor-pointer text-center lowercase"
             >
               haah

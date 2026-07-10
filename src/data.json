@@ -1,62 +1,87 @@
-[
-  {
-    "emojis": "🍏 👓 📱 💻",
-    "answer": "steve jobs",
-    "options": ["bill gates", "steve jobs", "tim cook", "elon musk"],
-    "hints": [
-      "he co-founded a fruit-named tech giant.",
-      "famous for wearing a black turtleneck and giving 'one more thing' keynotes."
+{
+  "questions": [
+    {
+      "emojis": "🍏 👓 📱 💻",
+      "answer": "steve jobs",
+      "options": ["bill gates", "steve jobs", "tim cook", "elon musk"],
+      "hints": [
+        "he co-founded a fruit-named tech giant.",
+        "famous for wearing a black turtleneck and giving 'one more thing' keynotes."
+      ],
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKqm-FbS-KhlNJNu4OLWPmNV63LAdW0TMz4dt_ZgcU-zyK4AizjoI7TFg6RA5-4LcXAoidFTe0p-AVmhIUWUKXSQoOc1guDLtbR5-f1A&s=10"
+    },
+    {
+      "emojis": "👽 🔌 🚘 🚀",
+      "answer": "elon musk",
+      "options": ["jeff bezos", "elon musk", "richard branson", "nikola tesla"],
+      "hints": [
+        "he wants to colonize mars.",
+        "ceo of tesla and spacex."
+      ],
+      "imageUrl": "https://assets-us-01.kc-usercontent.com/9bc15d1f-8a5c-007d-b507-e3496e85af86/37c069d8-0e1d-48a1-8afa-ccdb8ae4daf7/Elon_Musk_Royal_Society.webp"
+    },
+    {
+      "emojis": "⚡ 👓 🪄 🦉",
+      "answer": "harry potter",
+      "options": ["gandalf", "percy jackson", "harry potter", "sherlock holmes"],
+      "hints": [
+        "the boy who lived.",
+        "has a lightning bolt scar on his forehead."
+      ],
+      "imageUrl": "https://static.wikia.nocookie.net/characters/images/a/ae/Harrypotter.jpg/revision/latest/thumbnail/width/360/height/360?cb=20211103171808"
+    },
+    {
+      "emojis": "🎨 🌌 👂 🌻",
+      "answer": "vincent van gogh",
+      "options": ["pablo picasso", "vincent van gogh", "claude monet", "andy warhol"],
+      "hints": [
+        "dutch post-impressionist painter who cut off his own left ear.",
+        "painted 'the starry night' while in an asylum."
+      ],
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcoMmKA20XBqSY8zxzvnnCzRFAFiu2GeuMdhSib9RvscGbOh6V5NKNBabJ&s=10"
+    },
+    {
+      "emojis": "🏀 🐐 🔴 🐂",
+      "answer": "michael jordan",
+      "options": ["kobe bryant", "lebron james", "michael jordan", "shaquille o'neal"],
+      "hints": [
+        "widely considered the greatest basketball player of all time.",
+        "won six nba championships with the chicago bulls."
+      ],
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTp3DsvL5qeTALKiVeGUDIZdtF_TIcXYfI33R4Xbo2v9w&s=10"
+    },
+    {
+      "emojis": "👑 🎤 💃 🐝",
+      "answer": "beyoncé",
+      "options": ["rihanna", "taylor swift", "beyoncé", "madonna"],
+      "hints": [
+        "her fans are affectionately known as the 'beyhive'.",
+        "sang 'single ladies' and 'crazy in love'."
+      ],
+      "imageUrl": "https://cdn.britannica.com/59/204159-050-5055F2A9/Beyonce-2013.jpg"
+    }
+  ],
+  "leaderboards": {
+    "proofOfHumanity": [
+      { "rank": 1, "username": "Boldoo", "score": "6/6", "time": "12s" },
+      { "rank": 2, "username": "Saruul", "score": "6/6", "time": "15s" },
+      { "rank": 3, "username": "Orgil", "score": "5/6", "time": "18s" },
+      { "rank": 4, "username": "Solongo", "score": "5/6", "time": "22s" },
+      { "rank": 5, "username": "Bat", "score": "4/6", "time": "20s" }
     ],
-    "imageUrl": "https://share.google/ph4jhNo1RBz0bclen"
-  },
-  {
-    "emojis": "👽 🔌 🚘 🚀",
-    "answer": "elon musk",
-    "options": ["jeff bezos", "elon musk", "richard branson", "nikola tesla"],
-    "hints": [
-      "he wants to colonize mars.",
-      "ceo of tesla and spacex."
+    "typerfish": [
+      { "rank": 1, "username": "SpeedyFingers", "wpm": 128, "accuracy": "99%" },
+      { "rank": 2, "username": "Orgil", "wpm": 112, "accuracy": "98%" },
+      { "rank": 3, "username": "Saruul", "wpm": 95, "accuracy": "95%" },
+      { "rank": 4, "username": "Tuya", "wpm": 88, "accuracy": "97%" },
+      { "rank": 5, "username": "Ganaa", "wpm": 75, "accuracy": "92%" }
     ],
-    "imageUrl": "https://share.google/ph4jhNo1RBz0bclen"
-  },
-  {
-    "emojis": "⚡ 👓 🪄 🦉",
-    "answer": "harry potter",
-    "options": ["gandalf", "percy jackson", "harry potter", "sherlock holmes"],
-    "hints": [
-      "the boy who lived.",
-      "has a lightning bolt scar on his forehead."
-    ],
-    "imageUrl": "https://share.google/JuEZaXjx6RNC8YvrK"
-  },
-  {
-    "emojis": "🎨 🌌 👂 🌻",
-    "answer": "vincent van gogh",
-    "options": ["pablo picasso", "vincent van gogh", "claude monet", "andy warhol"],
-    "hints": [
-      "dutch post-impressionist painter who cut off his own left ear.",
-      "painted 'the starry night' while in an asylum."
-    ],
-    "imageUrl": "https://share.google/8nf2NHmV7ijhJKLUq"
-  },
-  {
-    "emojis": "🏀 🐐 🔴 🐂",
-    "answer": "michael jordan",
-    "options": ["kobe bryant", "lebron james", "michael jordan", "shaquille o'neal"],
-    "hints": [
-      "widely considered the greatest basketball player of all time.",
-      "won six nba championships with the chicago bulls."
-    ],
-    "imageUrl": "https://share.google/tpcweH07ZdZTvs2y8"
-  },
-  {
-    "emojis": "👑 🎤 💃 🐝",
-    "answer": "beyoncé",
-    "options": ["rihanna", "taylor swift", "beyoncé", "madonna"],
-    "hints": [
-      "her fans are affectionately known as the 'beyhive'.",
-      "sang 'single ladies' and 'crazy in love'."
-    ],
-    "imageUrl": "https://share.google/IIeJUAaHyVN5Opjia"
+    "bombDefuser": [
+      { "rank": 1, "username": "BombDefuserPro", "score": 2450, "defuses": 12 },
+      { "rank": 2, "username": "Orgil", "score": 1950, "defuses": 9 },
+      { "rank": 3, "username": "Boldoo", "score": 1600, "defuses": 8 },
+      { "rank": 4, "username": "Naraa", "score": 1200, "defuses": 6 },
+      { "rank": 5, "username": "Zorig", "score": 900, "defuses": 4 }
+    ]
   }
-]
+}
